@@ -4,22 +4,28 @@ import xbmcgui
 import xbmc
 import streamlink
 from urlparse import parse_qsl
+from urllib import urlencode
 
 # Get the plugin url in plugin:// notation.
-__url__ = sys.argv[0]
+pluginurl = sys.argv[0]
 # Get the plugin handle as an integer number.
-__handle__ = int(sys.argv[1])
+pluginhandle = int(sys.argv[1])
 
-xbmcplugin.setContent(__handle__, 'live TV')
+xbmcplugin.setContent(pluginhandle, 'tvshows')
 
 npo_url = 'http://www.npo.nl/live/npo-1'
-li = xbmcgui.ListItem('NPO1', iconImage='DefaultVideo.png')
-action_play = '{0}?action=play&url={1}'
+
+def play_url(url):
+    query = {'action': 'play', 'url':url}
+    return (pluginurl + '?' + urlencode(query))
 
 def list():
-    listurl = action_play.format(__url__, npo_url)
-    xbmcplugin.addDirectoryItem(handle=__handle__, url=listurl, listitem=li)
-    xbmcplugin.endOfDirectory(__handle__)
+    listurl = play_url(npo_url)
+    li = xbmcgui.ListItem('NPO1', iconImage='DefaultVideo.png')
+    li.setProperty('IsPlayable', 'true')
+    xbmcplugin.addDirectoryItem(handle=pluginhandle, url=listurl, listitem=li)
+    
+    xbmcplugin.endOfDirectory(pluginhandle)
 
 def play_stream(stream_url):
     """
@@ -32,7 +38,7 @@ def play_stream(stream_url):
     url = urls['best'].url
     play_item = xbmcgui.ListItem(path=url)
     # Pass the item to the Kodi player.
-    xbmcplugin.setResolvedUrl(__handle__, True, listitem=play_item)
+    xbmcplugin.setResolvedUrl(pluginhandle, True, listitem=play_item)
     
 def router(paramstring):
     """
