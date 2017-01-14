@@ -1,10 +1,13 @@
 import sys
-import xbmcplugin
-import xbmcgui
-import xbmc
+import os.path
+import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 import streamlink
+import xml.etree.ElementTree as ET
 from urlparse import parse_qsl
 from urllib import urlencode
+
+#constants
+xml_path = os.path.join(xbmcaddon.Addon().getAddonInfo("path"),'resources', 'data','streams.xml')
 
 # Get the plugin url in plugin:// notation.
 pluginurl = sys.argv[0]
@@ -20,13 +23,20 @@ def play_url(url):
     return (pluginurl + '?' + urlencode(query))
 
 def list():
-    listurl = play_url(npo_url)
-    li = xbmcgui.ListItem('NPO1', iconImage='DefaultVideo.png')
-    li.setProperty('IsPlayable', 'true')
-    xbmcplugin.addDirectoryItem(handle=pluginhandle, url=listurl, listitem=li)
-    
+    if not os.path.isfile(xml_path):
+        message = 'streams.xml could not be found'
+        xbmcgui.Dialog().notification('file not found', message, xbmcgui.NOTIFICATION_ERROR, 5000)
+        return
+        
+    root = ET.parse(xml_path).getroot()
+    for child in root:
+        streamname = child.attrib['name']
+        streamurl = child.text
+        li = xbmcgui.ListItem(streamname, iconImage='DefaultVideo.png')
+        li.setProperty('IsPlayable', 'true')
+        xbmcplugin.addDirectoryItem(handle=pluginhandle, url=play_url(streamurl), listitem=li)
     xbmcplugin.endOfDirectory(pluginhandle)
-
+    
 def play_stream(stream_url):
     """
     Play a stream at the provided url.
@@ -38,7 +48,7 @@ def play_stream(stream_url):
     url = urls['best'].url
     play_item = xbmcgui.ListItem(path=url)
     # Pass the item to the Kodi player.
-    xbmcplugin.setResolvedUrl(pluginhandle, True, listitem=play_item)
+    xbmcplugin.setResolvedUrl(pluginhandle, True, listitem=play_item)    
     
 def router(paramstring):
     """
