@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <streams>
-    <stream name="NPO1">http://www.npo.nl/live/npo-1</stream>
-    <stream name="NPO2">http://www.npo.nl/live/npo-2</stream>
-    <stream name="NPO3">http://www.npo.nl/live/npo-3</stream>
+    <stream name="NPO 1">http://www.npo.nl/live/npo-1</stream>
+    <stream name="NPO 2">http://www.npo.nl/live/npo-2</stream>
+    <stream name="NPO 3">http://www.npo.nl/live/npo-3</stream>
     <stream name="NPO Nieuws">http://nos.nl/livestream/npo-nieuws.html</stream>    
     <stream name="NPO Politiek">http://nos.nl/livestream/npo-politiek.html</stream>
+    <stream name="BBC One">https://www.filmon.com/tv/bbc-one</stream>
 </streams>
