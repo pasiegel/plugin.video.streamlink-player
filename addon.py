@@ -13,10 +13,8 @@ xml_path = os.path.join(xbmcaddon.Addon().getAddonInfo("path"),'resources', 'dat
 pluginurl = sys.argv[0]
 # Get the plugin handle as an integer number.
 pluginhandle = int(sys.argv[1])
-
+# Let kodi show the streams as a list of files
 xbmcplugin.setContent(pluginhandle, 'tvshows')
-
-npo_url = 'http://www.npo.nl/live/npo-1'
 
 def play_url(url):
     query = {'action': 'play', 'url':url}
@@ -27,7 +25,7 @@ def list():
         message = 'streams.xml could not be found'
         xbmcgui.Dialog().notification('file not found', message, xbmcgui.NOTIFICATION_ERROR, 5000)
         return
-        
+    
     root = ET.parse(xml_path).getroot()
     for child in root:
         streamname = child.attrib['name']
@@ -45,7 +43,13 @@ def play_stream(stream_url):
     """
     # Create a playable item with a path to play.
     urls = streamlink.streams(stream_url)
-    url = urls['best'].url
+    best = urls['best']
+    if type(best).__name__ == 'RTMPStream':
+        xbmcgui.Dialog().notification('rtmp', 'rtmp currently not supported', xbmcgui.NOTIFICATION_ERROR, 5000)
+        return
+        #TBD convert best.params to an rtmp string (now a dict)
+    else:
+        url = best.url
     play_item = xbmcgui.ListItem(path=url)
     # Pass the item to the Kodi player.
     xbmcplugin.setResolvedUrl(pluginhandle, True, listitem=play_item)    
