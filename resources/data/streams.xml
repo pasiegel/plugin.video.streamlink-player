@@ -4,5 +4,5 @@
     <stream name="NPO2">http://www.npo.nl/live/npo-2</stream>
     <stream name="NPO3">http://www.npo.nl/live/npo-3</stream>
     <stream name="NPO Nieuws">http://nos.nl/livestream/npo-nieuws.html</stream>    
-    <stream name="NPO Nieuws">http://nos.nl/livestream/npo-politiek.html</stream>
+    <stream name="NPO Politiek">http://nos.nl/livestream/npo-politiek.html</stream>
 </streams>
