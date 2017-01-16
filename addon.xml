@@ -8,14 +8,14 @@
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en_gb">Test</summary>
-    <description lang="en_gb">Test</description>
+    <summary lang="en_gb">Plays URLs supported by streamlink</summary>
+    <description lang="en_gb">Provide URL in the streams.xml. As long as a streamlink player supports the URL, it will be played in Kodi</description>
     <disclaimer lang="en_gb"></disclaimer>
     <language></language>
     <platform>all</platform>
-    <license></license>
+    <license> GNU GENERAL PUBLIC LICENSE v3</license>
     <forum></forum>
-    <website></website>
+    <website>https://github.com/sophof/plugin.video.streamlink-player</website>
     <email></email>
     <source></source>
     <news></news>
