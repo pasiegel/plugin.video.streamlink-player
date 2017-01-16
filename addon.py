@@ -37,22 +37,23 @@ def list():
     
 def play_stream(stream_url):
     """
-    Play a stream at the provided url.
-    :param url: str
+    Resolve and play a stream at the provided url.
+    :param stream_url: str
     :return: None
     """
-    # Create a playable item with a path to play.
     urls = streamlink.streams(stream_url)
     best = urls['best']
     if type(best).__name__ == 'RTMPStream':
-        xbmcgui.Dialog().notification('rtmp', 'rtmp currently not supported', xbmcgui.NOTIFICATION_ERROR, 5000)
-        return
-        #TBD convert best.params to an rtmp string (now a dict)
+        #RTMPstream for some reason does not support .url, so we have to build it ourself       
+        url = str(best.params['rtmp']) #start with rtmp://url
+        for key,value in best.params.iteritems():
+            if key != 'rtmp':
+                url += ' ' + str(key) + "=" + str(value) #add ' key=value' for all other params to url
     else:
+        #all other streams simply work
         url = best.url
-    play_item = xbmcgui.ListItem(path=url)
     # Pass the item to the Kodi player.
-    xbmcplugin.setResolvedUrl(pluginhandle, True, listitem=play_item)    
+    xbmcplugin.setResolvedUrl(pluginhandle, True, listitem=xbmcgui.ListItem(path=url))    
     
 def router(paramstring):
     """
