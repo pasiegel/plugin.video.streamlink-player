@@ -6,4 +6,6 @@
     <stream name="NPO Nieuws">http://nos.nl/livestream/npo-nieuws.html</stream>    
     <stream name="NPO Politiek">http://nos.nl/livestream/npo-politiek.html</stream>
     <stream name="BBC One">https://www.filmon.com/tv/bbc-one</stream>
+    <stream name="BBC Two">https://www.filmon.com/tv/bbc-two</stream>
+    <stream name="BBC News">https://www.filmon.com/tv/bbc-news</stream>
 </streams>
