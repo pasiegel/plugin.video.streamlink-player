@@ -14,7 +14,7 @@ pluginurl = sys.argv[0]
 # Get the plugin handle as an integer number.
 pluginhandle = int(sys.argv[1])
 # Let kodi show the streams as a list of files
-xbmcplugin.setContent(pluginhandle, 'tvshows')
+xbmcplugin.setContent(pluginhandle, 'video')
 
 def play_url(url):
     query = {'action': 'play', 'url':url}
@@ -32,6 +32,7 @@ def list():
         streamurl = child.text
         li = xbmcgui.ListItem(streamname, iconImage='DefaultVideo.png')
         li.setProperty('IsPlayable', 'true')
+        li.setInfo('video', infoLabels={'Title':streamname,'mediatype':'video'})
         xbmcplugin.addDirectoryItem(handle=pluginhandle, url=play_url(streamurl), listitem=li)
     xbmcplugin.endOfDirectory(pluginhandle)
     
@@ -76,6 +77,8 @@ def router(paramstring):
         if params['action'] == 'play':
             # Play a video from a provided URL.
             play_stream(params['url'])
+        else:
+            list()
     else:
         # If the plugin is called from Kodi UI without any parameters,
         # display the list of streams
