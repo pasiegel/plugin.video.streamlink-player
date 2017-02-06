@@ -48,7 +48,11 @@ def play_stream(stream_url):
     except streamlink.exceptions.NoPluginError:
         xbmcgui.Dialog().notification('Unable to play stream', 'no plugin for stream at {}'.format(stream_url), xbmcgui.NOTIFICATION_ERROR, 5000)
         return
-        
+
+    if not urls : #check if the plugin actually returned playable urls
+        xbmcgui.Dialog().notification('Unable to play stream', 'no playable stream found at {}, url list is empty'.format(stream_url), xbmcgui.NOTIFICATION_ERROR, 5000)
+        return    
+    
     best = urls['best']
     if type(best).__name__ == 'RTMPStream':
         #RTMPstream for some reason does not support .url, so we have to build it ourself       
