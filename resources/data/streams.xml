@@ -1,11 +1,4 @@
 <?xml version="1.0"?>
 <streams>
-    <stream name="NPO 1">http://www.npo.nl/live/npo-1</stream>
-    <stream name="NPO 2">http://www.npo.nl/live/npo-2</stream>
-    <stream name="NPO 3">http://www.npo.nl/live/npo-3</stream>
-    <stream name="NPO Nieuws">http://nos.nl/livestream/npo-nieuws.html</stream>    
-    <stream name="NPO Politiek">http://nos.nl/livestream/npo-politiek.html</stream>
-    <stream name="BBC One">https://www.filmon.com/tv/bbc-one</stream>
-    <stream name="BBC Two">https://www.filmon.com/tv/bbc-two</stream>
-    <stream name="BBC News">https://www.filmon.com/tv/bbc-news</stream>
+    <stream name="Twitch Poker Sample">https://go.twitch.tv/poker4uu</stream>
 </streams>
